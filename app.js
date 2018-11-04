@@ -8,6 +8,17 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+require('dotenv').config()
+
+// connect to mongoDB
+var mongoose = require('mongoose');
+var mongoDB = process.env.MONGODB_URL;
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
